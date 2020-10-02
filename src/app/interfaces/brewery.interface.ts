@@ -1,3 +1,5 @@
+// All API keys returned from Open Brewery DB API
+
 export interface Brewery {
     id: number;
     name: string;
