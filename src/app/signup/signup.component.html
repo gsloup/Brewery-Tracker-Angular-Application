@@ -1,1 +1,30 @@
-<p>signup works!</p>
+<h3 class="text-center">Sign Up</h3>
+
+<form [formGroup]='signupForm' (ngSubmit)="signup()" class="signup-form margin-auto">
+
+    <mat-form-field class="full-width">
+      <mat-label>Create a username</mat-label>
+      <input matInput formControlName="username" placeholder="Username">
+      <mat-error>
+        Username must be between 2 and 20 characters
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password" placeholder="Password">
+        <mat-error>
+          Password must be between 4 and 16 characters
+        </mat-error>
+    </mat-form-field>
+
+
+    <div class="button">
+        <button mat-raised-button color='primary' [disabled]="signupForm.invalid">Sign Up</button>
+    </div>
+
+    <div class="text-center">
+        <a routerLink='/login'>Already a user? Log in here!</a>
+    </div>
+
+  </form>
