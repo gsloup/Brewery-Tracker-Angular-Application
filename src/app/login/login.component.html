@@ -1,1 +1,37 @@
-<p>login works!</p>
+<h3 class="text-center">Log In</h3>
+
+<form class="login-form margin-auto">
+
+    <mat-form-field class="full-width">
+      <mat-label>Username</mat-label>
+      <input matInput [formControl]="usernameFormControl" type="text" placeholder="Username">
+      <mat-error *ngIf="usernameFormControl.hasError('username') && !usernameFormControl.hasError('required')">
+        Please enter a valid username
+      </mat-error>
+      <mat-error *ngIf="usernameFormControl.hasError('required')">
+        Username is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput [formControl]="passwordFormControl" type="password" placeholder="Password">
+        <mat-error *ngIf="passwordFormControl.hasError('password') && !passwordFormControl.hasError('required')">
+          Password incorrect, please try again!
+        </mat-error>
+        <mat-error *ngIf="passwordFormControl.hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+    </mat-form-field>
+
+<!--  WILL UNCOMMENT WHEN CONTROLLER GETS FIXED
+    <div class="button">
+        <button mat-raised-button color='primary' [disabled]="loginForm.invalid">Login</button>
+    </div>
+
+    <div class="text-center">
+        <a routerLink='/signup'>New User? Sign up here!</a>
+    </div>
+-->
+  </form>
+
