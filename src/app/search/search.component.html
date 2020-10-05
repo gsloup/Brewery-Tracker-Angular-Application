@@ -34,8 +34,12 @@
       <div class="example-element-detail"
            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
 
-          <div><a [href]="element.website_url" target="_blank">Website</a></div>
-          <h3>{{ element.phone | phoneNumber }} </h3>
+          <!-- Website -->
+          <div><a [href]="element.website_url" target="_blank">{{ element.website_url }}</a></div>
+
+          <!-- Phone Number -->
+          <div><a [href]='"tel:"+"element.phone"'>{{ element.phone | phoneNumber }} </a></div>
+
           <div>
             <p>{{ element.street }}</p>
             <p>{{ element.city }}, {{element.state}}, {{ element.postal_code }}</p>
