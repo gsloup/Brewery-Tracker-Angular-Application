@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './materialModule';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { PhoneNumberPipe } from './pipes/phone-number.pipe';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
     SearchComponent,
     UserComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    PhoneNumberPipe
   ],
   imports: [
     BrowserModule,

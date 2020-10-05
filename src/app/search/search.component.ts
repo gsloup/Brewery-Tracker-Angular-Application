@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Brewery } from '../interfaces/brewery.interface';
 import { BreweryService } from '../services/brewery.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import { PhoneNumberPipe } from '../pipes/phone-number.pipe'
 
 @Component({
   selector: 'app-search',
@@ -29,14 +30,13 @@ export class SearchComponent implements OnInit {
     latitude: "37.807739",
     phone: "5103061914",
     website_url: "http://www.divingdogbrew.com",
-    updated_at: "2018-08-23T23:27:26.494Z",
-    favorite: false
+    updated_at: "2018-08-23T23:27:26.494Z"
   }]; 
 
   // dataSource = ELEMENT_DATA; // OG
   dataSource = this.breweries;
   // columnsToDisplay = ['name', 'weight', 'symbol', 'position']; // OG
-  columnsToDisplay = ['name', 'city', 'state', 'favorite']; // change to this for main headings
+  columnsToDisplay = ['name', 'city', 'state']; // change to this for main headings
   // expandedElement: PeriodicElement | null; // OG
   expandedElement: Brewery | null;
 
