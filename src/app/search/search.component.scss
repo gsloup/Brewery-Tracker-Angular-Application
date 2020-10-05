@@ -31,7 +31,20 @@ tr.element-row:not(.example-expanded-row):active {
 
 .element-detail {
   overflow: hidden;
+}
+
+.flex {
   display: flex;
+}
+.row {
+  flex-flow: row;
+}
+.flex-space-even {
+  justify-content: space-evenly ;
+  flex-grow: 1;
+}
+.align-center {
+  align-items: center;
 }
 
 
