@@ -16,7 +16,22 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   ],
 })
 export class SearchComponent implements OnInit {
-  breweries: Array<Brewery> = []; 
+  breweries: Array<Brewery> = [{ // ADDED AN EXAMPLE RESPONSE TO WORK ON TABLE
+    id: 530,
+    name: "Diving Dog Brewhouse",
+    brewery_type: "micro",
+    street: "1802 Telegraph Ave",
+    city: "Oakland",
+    state: "California",
+    postal_code: "94612-2110",
+    country: "United States",
+    longitude: "-122.2698881",
+    latitude: "37.807739",
+    phone: "5103061914",
+    website_url: "http://www.divingdogbrew.com",
+    updated_at: "2018-08-23T23:27:26.494Z",
+    favorite: false
+  }]; 
 
   // dataSource = ELEMENT_DATA; // OG
   dataSource = this.breweries;

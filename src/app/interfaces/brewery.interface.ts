@@ -14,4 +14,5 @@ export interface Brewery {
     phone: string;
     website_url: string;
     updated_at: string;
+    favorite?: boolean; // T/F indicates whether user wants to add to favorites
 }
