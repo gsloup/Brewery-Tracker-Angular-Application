@@ -40,9 +40,12 @@
           <!-- Phone Number -->
           <div><a [href]='"tel:"+"element.phone"'>{{ element.phone | phoneNumber }} </a></div>
 
+          <!-- Street Address -->
           <div>
-            <p>{{ element.street }}</p>
-            <p>{{ element.city }}, {{element.state}}, {{ element.postal_code }}</p>
+            <a [href]='"https://maps.google.com/?ll="+element.latitude+","+element.longitude' target="_blank">
+              <p>{{ element.street }}</p>
+              <p>{{ element.city }} {{element.state}}, {{ element.postal_code }}</p>
+          </a>
           </div>
           <mat-checkbox>Favorite</mat-checkbox>
         <!-- <div class="example-element-diagram">
