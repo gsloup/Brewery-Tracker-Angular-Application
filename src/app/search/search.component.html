@@ -8,8 +8,11 @@
     <button mat-raised-button color='primary' (click)='getBreweries()'>Search</button>
 </form>
 
-<!-- <ul>
-    <li *ngFor="let brewery of breweries"></li>
-        {{brewery | async}}
-</ul> -->
-{{ breweries[0].name }}
+<ul>
+    <li *ngFor="let brewery of breweries">
+      {{ brewery.name }}, {{ brewery.website_url }}
+    </li>
+    
+        
+</ul>
+{{ breweries[0]?.name }}

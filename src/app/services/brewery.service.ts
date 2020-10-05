@@ -29,10 +29,7 @@ export class BreweryService {
         phone: brewery.phone,
         website_url: brewery.website_url,
         updated_at: brewery.updated_at
-
       }) 
-      
-      
       )) )
   }
 

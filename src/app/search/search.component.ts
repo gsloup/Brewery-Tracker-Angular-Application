@@ -24,6 +24,7 @@ export class SearchComponent implements OnInit {
     const searchBox = document.getElementById("search");
     
     this.breweryService.getBreweries(searchBox['value']).subscribe((res)=> {
+      console.log(res);
       
       this.breweries = res;
       
