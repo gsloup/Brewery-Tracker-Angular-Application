@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Brewery } from '../interfaces/brewery.interface';
 import { BreweryService } from '../services/brewery.service';
 
 @Component({
@@ -8,17 +9,29 @@ import { BreweryService } from '../services/brewery.service';
 })
 export class SearchComponent implements OnInit {
 
-  breweries: any; // temp declaration, change later
+  breweries: Array<Brewery> = []; 
 
   constructor(private breweryService: BreweryService) { }
 
   ngOnInit(): void {
+    
+      
+    
+
   }
 
-  getBreweries (search='omaha') { // temp placeholder omaha for testing
-    this.breweryService.getBreweries(search).subscribe(res=> this.breweries = res)
-    console.log(this.breweries);
-    // NOT SURE ON LIMITS OF HTTP RESPONSE, MAY NEED TO LIMIT RESULTS PER PAGE
+  getBreweries () { // temp placeholder omaha for testing
+    const searchBox = document.getElementById("search");
+    
+    this.breweryService.getBreweries(searchBox['value']).subscribe((res)=> {
+      
+      this.breweries = res;
+      
+      console.log(this.breweries); //RETURNS UNDEFINED...
+      // NOT SURE ON LIMITS OF HTTP RESPONSE, MAY NEED TO LIMIT RESULTS PER PAGE
+      console.log(this.breweries[0].name); // WILL LATER USE NG FOR TO ITERATE THROUGH BREWERY ARRAY
+    
+      })
     
   }
 

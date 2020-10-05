@@ -1,8 +1,15 @@
 <form class="search-form margin-auto">
     <mat-form-field class="full-width">
       <mat-label>Breweries</mat-label>
-      <input matInput placeholder="Ex. 'New York' or 'Vis Major'">
+      <input matInput placeholder="Search..." id="search">
+      <mat-hint align="start">Ex. 'New York' or 'Vis Major'</mat-hint>
     </mat-form-field>  
 
     <button mat-raised-button color='primary' (click)='getBreweries()'>Search</button>
 </form>
+
+<!-- <ul>
+    <li *ngFor="let brewery of breweries"></li>
+        {{brewery | async}}
+</ul> -->
+{{ breweries[0].name }}
