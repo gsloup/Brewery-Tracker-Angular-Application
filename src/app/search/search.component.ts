@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Brewery } from '../interfaces/brewery.interface';
 import { BreweryService } from '../services/brewery.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import { MatTableDataSource } from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-search',
@@ -16,46 +18,37 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   ],
 })
 export class SearchComponent implements OnInit {
-  breweries: Array<Brewery> = [{ // ADDED AN EXAMPLE RESPONSE TO WORK ON TABLE
-    id: 530,
-    name: "Diving Dog Brewhouse",
-    brewery_type: "micro",
-    street: "1802 Telegraph Ave",
-    city: "Oakland",
-    state: "California",
-    postal_code: "94612-2110",
-    country: "United States",
-    longitude: "-122.2698881",
-    latitude: "37.807739",
-    phone: "5103061914",
-    website_url: "http://www.divingdogbrew.com",
-    updated_at: "2018-08-23T23:27:26.494Z"
-  }]; 
+  breweries: Array<Brewery> = []; 
 
 
-  dataSource = this.breweries;
+  dataSource: MatTableDataSource<Brewery>;
   columnsToDisplay = ['name', 'city', 'state', 'favorite']; 
   expandedElement: Brewery | null;
 
 
   constructor(private breweryService: BreweryService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.breweryService.breweries$.subscribe((res)=> {
+      console.log(res);
+      
+      this.breweries = res;
+      this.dataSource = new MatTableDataSource(this.breweries);
+      this.dataSource.paginator = this.paginator;
+      })
+  }
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
   
 
   getBreweries () { // temp placeholder omaha for testing
     const searchBox = document.getElementById("search");
     
-    this.breweryService.getBreweries(searchBox['value']).subscribe((res)=> {
-      console.log(res);
-      
-      this.breweries = res;
-      
-      console.log(this.breweries); //RETURNS UNDEFINED...
-      // NOT SURE ON LIMITS OF HTTP RESPONSE, MAY NEED TO LIMIT RESULTS PER PAGE
-      console.log(this.breweries[0].name); // WILL LATER USE NG FOR TO ITERATE THROUGH BREWERY ARRAY
-    
-      })
+    this.breweryService.getBreweries(searchBox['value'])
     
   }
 }

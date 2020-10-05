@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { identifierModuleUrl } from '@angular/compiler';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { map, retry } from 'rxjs/operators'
 import { Brewery } from '../interfaces/brewery.interface';
 
@@ -10,10 +9,27 @@ import { Brewery } from '../interfaces/brewery.interface';
 })
 export class BreweryService {
 
+  // Creates an instance of a behavior subject
+  private readonly _breweries = new BehaviorSubject<Brewery[]>([]);
+
+  // Make a subsequent observable
+  readonly breweries$ = this._breweries.asObservable();
+
+  // Getter will return the last value emitted in _breweries subject
+  private get breweries(): Brewery[] {
+    return this._breweries.getValue();
+  }
+
+  // Assigning a value to this.breweries will push it onto the observable 
+  // and down to all of its subscribers (ex: this.breweries = [])
+  private set breweries(val: Brewery[]) {
+    this._breweries.next(val);
+  }
+
   constructor(private http: HttpClient) { }
 
   getBreweries (search: string) {
-    return this.http.get(`https://api.openbrewerydb.org/breweries/search?query=${search}`)
+    this.http.get(`https://api.openbrewerydb.org/breweries/search?query=${search}`)
     .pipe(
       map((res: Brewery[]) => res.map((brewery: Brewery) =>({
         id: brewery.id,
@@ -30,7 +46,7 @@ export class BreweryService {
         website_url: brewery.website_url,
         updated_at: brewery.updated_at
       }) 
-      )) )
+      )) ).subscribe(res => this.breweries = res)
   }
 
 }

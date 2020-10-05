@@ -8,17 +8,7 @@
   <button class="float-right" mat-raised-button color='primary' (click)='getBreweries()'>Search</button>
 </form>
 
-<ul>
-  <li *ngFor="let brewery of breweries">
-    {{ brewery.name }}, {{ brewery.website_url }}
-  </li>
-
-
-</ul>
-{{ breweries[0]?.name }}
-
-
-
+<!-- Brewery display table -->
 <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
   <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
     <th mat-header-cell *matHeaderCellDef> {{ column | titlecase }} </th>
@@ -50,10 +40,6 @@
           <!-- Phone Number -->
           <div class="flex-space-even text-center"><a [href]='"tel:"+"element.phone"'>{{ element.phone | phoneNumber }} </a></div>
 
-          
-        
-
-
       </div>
     </td>
   </ng-container>
@@ -64,4 +50,7 @@
     (click)="expandedElement = expandedElement === element ? null : element">
   </tr>
   <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+  
 </table>
+<!-- Table pagination -->
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
