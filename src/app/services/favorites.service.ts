@@ -19,5 +19,14 @@ export class FavoritesService {
     this._favoritesList.next(val);
   }
 
-  constructor() { }
+  addFavorite(obj: Brewery){
+    this.favoritesList = [...this.favoritesList, obj]
+  }
+
+  removeFavorite(id){
+    this.favoritesList = this.favoritesList.filter(b=> b.id !== id);
+  }
+
+  constructor() {
+   }
 }

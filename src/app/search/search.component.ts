@@ -34,6 +34,7 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void { 
     // Breweries List
     this.breweryService.breweries$.subscribe((res)=> { 
+      console.log("This is the list of breweries returned by API:");
       console.log(res);
       
       this.breweries = res;
@@ -43,8 +44,8 @@ export class SearchComponent implements OnInit {
     
     // Favorites List 
     this.favoritesService.favoritesList$.subscribe((res)=> {
-      console.log(res)
-
+      console.log(`this is the favoritesService ${res}`);
+      
       this.favoritesList = res;
     })
   }
@@ -64,16 +65,14 @@ export class SearchComponent implements OnInit {
   }
 
   updateFavoritesList(favBool: boolean, element) {
-    console.log(favBool); // prints a boolean based on whether checkbox is ticked
-    console.log(element)
     if (favBool) {
       // add to list of favorites
-      this.favoritesList.push(element); 
-      console.log(this.favoritesList);
+      this.favoritesService.addFavorite(element);
 
     }
     else {
       // remove from list of favorites
+      this.favoritesService.removeFavorite(element.id);
     }
 
     
