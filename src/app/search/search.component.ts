@@ -33,7 +33,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void { 
     // Breweries List
-    this.breweryService.breweries$.subscribe((res)=> { // need to create a separate one for favoritesList
+    this.breweryService.breweries$.subscribe((res)=> { 
       console.log(res);
       
       this.breweries = res;
