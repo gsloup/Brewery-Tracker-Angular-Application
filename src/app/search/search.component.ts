@@ -31,6 +31,7 @@ export class SearchComponent implements OnInit {
   constructor(private breweryService: BreweryService) { }
 
   ngOnInit(): void { 
+    // Breweries List
     this.breweryService.breweries$.subscribe((res)=> { // need to create a separate one for favoritesList
       console.log(res);
       
@@ -38,6 +39,13 @@ export class SearchComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.breweries);
       this.dataSource.paginator = this.paginator;
       })
+    
+    // Favorites List 
+    this.breweryService.favoritesList$.subscribe((res)=> {
+      console.log(res)
+
+      this.favoritesList = res;
+    })
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

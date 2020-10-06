@@ -9,14 +9,12 @@ import { Brewery } from '../interfaces/brewery.interface';
 })
 export class BreweryService {
 
-  // Creates an instance of a behavior subject
-  private readonly _breweries = new BehaviorSubject<Brewery[]>([]);
-
-  // Make a subsequent observable
-  readonly breweries$ = this._breweries.asObservable();
+  // State Management for List of Breweries returned by API call
+  private readonly _breweries = new BehaviorSubject<Brewery[]>([]); // Behavior Subject
+  readonly breweries$ = this._breweries.asObservable(); // Observable
 
   // Getter will return the last value emitted in _breweries subject
-  private get breweries(): Brewery[] {
+  private get breweries(): Brewery[] { 
     return this._breweries.getValue();
   }
 
@@ -25,8 +23,20 @@ export class BreweryService {
   private set breweries(val: Brewery[]) {
     this._breweries.next(val);
   }
+  // ------------------------------------------------------------------
 
-  //private readonly _favoritesList
+  // State Management for List of Favorites
+  private readonly _favoritesList = new BehaviorSubject<Brewery[]>([]); // behavior subject
+  readonly favoritesList$ = this._favoritesList.asObservable(); // Observable
+  
+  private get favoritesList(): Brewery[] { // Getter
+    return this._favoritesList.getValue();
+  }
+
+  private set favoritesList(val: Brewery[]) { // Setter
+    this._favoritesList.next(val);
+  }
+  //--------------------------------------------------------------------
 
   constructor(private http: HttpClient) { }
 
