@@ -23,20 +23,6 @@ export class BreweryService {
   private set breweries(val: Brewery[]) {
     this._breweries.next(val);
   }
-  // ------------------------------------------------------------------
-
-  // State Management for List of Favorites
-  private readonly _favoritesList = new BehaviorSubject<Brewery[]>([]); // behavior subject
-  readonly favoritesList$ = this._favoritesList.asObservable(); // Observable
-  
-  private get favoritesList(): Brewery[] { // Getter
-    return this._favoritesList.getValue();
-  }
-
-  private set favoritesList(val: Brewery[]) { // Setter
-    this._favoritesList.next(val);
-  }
-  //--------------------------------------------------------------------
 
   constructor(private http: HttpClient) { }
 

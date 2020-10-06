@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Brewery } from '../interfaces/brewery.interface';
 import { BreweryService } from '../services/brewery.service';
+import { FavoritesService } from '../services/favorites.service';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
@@ -28,7 +29,7 @@ export class SearchComponent implements OnInit {
   expandedElement: Brewery | null;
 
 
-  constructor(private breweryService: BreweryService) { }
+  constructor(private breweryService: BreweryService, private favoritesService: FavoritesService) { }
 
   ngOnInit(): void { 
     // Breweries List
@@ -41,7 +42,7 @@ export class SearchComponent implements OnInit {
       })
     
     // Favorites List 
-    this.breweryService.favoritesList$.subscribe((res)=> {
+    this.favoritesService.favoritesList$.subscribe((res)=> {
       console.log(res)
 
       this.favoritesList = res;
@@ -69,8 +70,6 @@ export class SearchComponent implements OnInit {
       // add to list of favorites
       this.favoritesList.push(element); 
       console.log(this.favoritesList);
-      
-
 
     }
     else {
