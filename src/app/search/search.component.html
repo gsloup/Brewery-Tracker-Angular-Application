@@ -14,7 +14,7 @@
     <th mat-header-cell *matHeaderCellDef> {{ column | titlecase }} </th>
     <td mat-cell *matCellDef="let element">
       <ng-container *ngIf="column === 'favorite'">
-        <mat-checkbox [(ngModel)]="element.favorite" (ngModelChange)="updateFavoritesList($event, element)" >{{element.favorite}}</mat-checkbox>
+        <mat-checkbox [(ngModel)]="element.favorite" [checked]="element.favorite" (change)="updateFavoritesList(element)" ></mat-checkbox>
       </ng-container>
       <ng-container *ngIf="column !== 'favorite'">{{ element[column] }}</ng-container>
 

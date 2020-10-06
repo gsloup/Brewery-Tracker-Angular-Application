@@ -64,8 +64,8 @@ export class SearchComponent implements OnInit {
     
   }
 
-  updateFavoritesList(favBool: boolean, element) {
-    if (favBool) {
+  updateFavoritesList(element) {
+    if (element.favorite) {
       // add to list of favorites
       this.favoritesService.addFavorite(element);
 
@@ -73,25 +73,9 @@ export class SearchComponent implements OnInit {
     else {
       // remove from list of favorites
       this.favoritesService.removeFavorite(element.id);
-    }
-
-    
-
-  }
-
-}
-
-
-
-      
-  
-
-  
-
-  
-
-
 
  
 
-
+    }
+  }
+}
