@@ -26,6 +26,8 @@ export class BreweryService {
     this._breweries.next(val);
   }
 
+  //private readonly _favoritesList
+
   constructor(private http: HttpClient) { }
 
   getBreweries (search: string) {
@@ -44,10 +46,12 @@ export class BreweryService {
         latitude: brewery.latitude,
         phone: brewery.phone,
         website_url: brewery.website_url,
-        updated_at: brewery.updated_at
+        updated_at: brewery.updated_at,
+        favorite: brewery.favorite
       }) 
       )) ).subscribe(res => this.breweries = res)
   }
 
+  
 }
 

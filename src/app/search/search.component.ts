@@ -5,6 +5,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -19,6 +20,7 @@ import {MatPaginator} from '@angular/material/paginator';
 })
 export class SearchComponent implements OnInit {
   breweries: Array<Brewery> = []; 
+  favoritesList: Array<Brewery> = [];
 
 
   dataSource: MatTableDataSource<Brewery>;
@@ -29,7 +31,7 @@ export class SearchComponent implements OnInit {
   constructor(private breweryService: BreweryService) { }
 
   ngOnInit(): void { 
-    this.breweryService.breweries$.subscribe((res)=> {
+    this.breweryService.breweries$.subscribe((res)=> { // need to create a separate one for favoritesList
       console.log(res);
       
       this.breweries = res;
@@ -51,6 +53,26 @@ export class SearchComponent implements OnInit {
     this.breweryService.getBreweries(searchBox['value'])
     
   }
+
+  updateFavoritesList(favBool: boolean, element) {
+    console.log(favBool); // prints a boolean based on whether checkbox is ticked
+    console.log(element)
+    if (favBool) {
+      // add to list of favorites
+      this.favoritesList.push(element); 
+      console.log(this.favoritesList);
+      
+
+
+    }
+    else {
+      // remove from list of favorites
+    }
+
+    
+
+  }
+
 }
 
 
