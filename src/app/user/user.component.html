@@ -22,7 +22,7 @@
         </div>
     </mat-card-content>
     <mat-card-actions>
-        <button mat-icon-button aria-label="Brew website icon">
+        <button mat-icon-button aria-label="Brew website icon" [title]='"Visit the "+ favorite.name+" website"'>
             <a [href]="website_url" target="_blank">
                 <mat-icon>open_in_new</mat-icon>
             </a>
