@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-signup',
@@ -10,11 +11,12 @@ export class SignupComponent implements OnInit {
 
   signupForm: FormGroup;
 
-  constructor(private fb:FormBuilder) { }
+  constructor(private fb:FormBuilder, private userService: UserService) { }
 
   signup() {
     if (this.signupForm.valid) {
-      // ADD CODE TO SIGN USER UP
+      // Run "signup()" in userService based on info entered on the template
+      this.userService.signup(this.signupForm.get("username").value, this.signupForm.get("password").value);
 
     }
   }
