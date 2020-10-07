@@ -33,18 +33,10 @@ tr.element-row:not(.example-expanded-row):active {
   overflow: hidden;
 }
 
-.flex {
-  display: flex;
+.padding20 {
+  padding: 20px;
 }
-.row {
-  flex-flow: row;
-}
-.flex-space-even {
-  justify-content: space-evenly ;
-  flex-grow: 1;
-}
-.align-center {
-  align-items: center;
-}
+
+
 
 

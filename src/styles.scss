@@ -21,3 +21,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .float-right {
     float: right;
 }
+.flex {
+    display: flex;
+}
+.row {
+flex-flow: row;
+}
+.flex-space-even {
+justify-content: space-evenly ;
+flex-grow: 1;
+}
+.align-center {
+align-items: center;
+}
