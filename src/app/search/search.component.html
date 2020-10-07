@@ -1,39 +1,47 @@
-<form class="search-form margin-auto">
+<form class="search-form margin-auto" style='text-align: right;'>
   <mat-form-field class="full-width">
     <mat-label>Breweries</mat-label>
     <input matInput placeholder="Search..." id="search">
     <mat-hint align="start">Ex. 'New York' or 'Vis Major'</mat-hint>
   </mat-form-field>
 
-  <button class="float-right" mat-raised-button color='primary' (click)='getBreweries()'>Search</button>
+  <button  mat-raised-button color='primary' (click)='getBreweries()'>Search</button>
 </form>
 
+
+<img *ngIf="breweries.length === 0" style="display: block; margin: auto;" src="../../assets/brewIcons/002-beer-bottle.svg" alt="Beer picture">
+
+
 <!-- Brewery display table -->
-<table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
-  <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-    <th mat-header-cell *matHeaderCellDef> {{ column | titlecase }} </th>
-    
+<div [ngClass]="{'hide-class' : breweries.length === 0}">
+  <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+    <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+      <th mat-header-cell *matHeaderCellDef> {{ column | titlecase }} </th>
+
       <ng-container *ngIf="column === 'favorite'">
         <td mat-cell *matCellDef="let element">
-        <mat-checkbox [(ngModel)]="element.favorite" [checked]="element.favorite" (change)="updateFavoritesList(element)" ></mat-checkbox>
-      </td>
+          <mat-checkbox [(ngModel)]="element.favorite" [checked]="element.favorite"
+            (change)="updateFavoritesList(element)"></mat-checkbox>
+        </td>
       </ng-container>
       <ng-container *ngIf="column !== 'favorite'">
         <td mat-cell *matCellDef="let element" (click)="expandedElement = expandedElement === element ? null : element">
-        {{ element[column] }}
+          {{ element[column] }}
         </td>
       </ng-container>
 
-    
-  </ng-container>
 
-  <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-  <ng-container matColumnDef="expandedDetail">
-    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
-      <div class="element-detail flex row align-center" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-        
+    </ng-container>
+
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+        <div class="element-detail flex row align-center"
+          [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+
           <!-- Website -->
-          <div class="flex-space-even text-center"><a [href]="element.website_url" target="_blank">{{ element.website_url }}</a></div>
+          <div class="flex-space-even text-center"><a [href]="element.website_url"
+              target="_blank">{{ element.website_url }}</a></div>
 
           <!-- Street Address -->
           <div class="flex-space-even text-center">
@@ -44,18 +52,20 @@
           </div>
 
           <!-- Phone Number -->
-          <div class="flex-space-even text-center"><a [href]='"tel:"+"element.phone"'>{{ element.phone | phoneNumber }} </a></div>
+          <div class="flex-space-even text-center"><a [href]='"tel:"+"element.phone"'>{{ element.phone | phoneNumber }}
+            </a></div>
 
-      </div>
-    </td>
-  </ng-container>
+        </div>
+      </td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-  <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="element-row"
-    [class.example-expanded-row]="expandedElement === element">
-  </tr>
-  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
-  
-</table>
-<!-- Table pagination -->
-<mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="element-row"
+      [class.example-expanded-row]="expandedElement === element">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+
+  </table>
+  <!-- Table pagination -->
+  <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+</div>
