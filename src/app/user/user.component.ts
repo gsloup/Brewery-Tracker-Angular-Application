@@ -18,14 +18,13 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     // Favorites List Subscription
     this.favoritesService.favoritesList$.subscribe((res)=> {
-      console.log(`this is the favoritesService ${res}`);
-
-     this.favoritesList = res;
-
+      
+      this.favoritesList = res;
     })
 
     // User Info Subscription
     this.userService.user$.subscribe(res =>{ 
+
       this.user = res;
     })
   }
