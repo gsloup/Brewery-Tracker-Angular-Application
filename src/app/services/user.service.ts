@@ -25,5 +25,24 @@ export class UserService {
     }
   }
 
+  signup(username: string, password: string): void {
+    let users = JSON.parse(localStorage.getItem('users')); // gets users array from local storage
+    if (users === null) { // if no users exist, create an empty array called 'users'
+      users = [];
+    }
+    let usersByName = users.filter(u => u.username === username); // filters out any matching usernames to the one in the argument
+    if (usersByName.length === 0) { // if there are no users that go by the name passed in the method argument...
+      users.push({username: username, password: password}) // add it to the users array
+      
+      localStorage.setItem('users', JSON.stringify(users)); // Sets new 'users' array to local storage
+
+      this.login(username, password); // logs user in and will do the rerouting to '/search'
+    }
+    else {
+      // give the user a "name already exists" message
+    }
+
+  }
+
   
 }
