@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, Inject } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { map, retry } from 'rxjs/operators'
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators'
 import { Brewery } from '../interfaces/brewery.interface';
 import { FavoritesService } from './favorites.service';
 
