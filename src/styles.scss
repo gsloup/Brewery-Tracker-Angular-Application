@@ -29,11 +29,17 @@ body {
     display: flex;
 }
 .row {
-flex-flow: row;
+    flex-flow: row;
+}
+.flex-wrap{
+    flex-wrap: wrap;
 }
 .flex-space-even {
-justify-content: space-evenly ;
-flex-grow: 1;
+    justify-content: space-evenly ;
+    flex-grow: 1;
+}
+.center-justified {
+    justify-content: center;
 }
 .align-center {
 align-items: center;
