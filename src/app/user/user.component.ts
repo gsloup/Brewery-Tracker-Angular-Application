@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FavoritesService } from '../services/favorites.service';
 import { Brewery } from '../interfaces/brewery.interface';
 import { UserService } from '../services/user.service';
-import { isDataSource } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-user',
