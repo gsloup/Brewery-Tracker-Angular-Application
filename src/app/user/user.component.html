@@ -1,7 +1,7 @@
 <h1 class="text-center">{{ user }}'s Brew Page</h1>
 <h2 class="text-center">Favorite Breweries</h2>
 
-<mat-card class="card">
+<!-- <mat-card class="card">
     <mat-card-header>
         <img mat-card-avatar src="../../assets/brewIcons/001-beer-1.svg" alt="Brew Icon">
         <mat-card-title>{{ breweryName }}</mat-card-title>
@@ -30,7 +30,42 @@
             <mat-icon>favorite</mat-icon>
         </button>
     </mat-card-actions>
-</mat-card>
+</mat-card> -->
 
+
+
+<!-- Credit given for brew icons -->
 <div class="credit">**Icons made by <a href="https://www.flaticon.local/authors/freepik" title="Freepik">Freepik</a>
     from <a href="https://www.flaticon.local/" title="Flaticon">www.flaticon.local</a></div>
+
+<!-- Experiment below -->
+<mat-card *ngFor="let favorite of favoritesList" class="card">
+    <mat-card-header>
+        <img mat-card-avatar src="../../assets/brewIcons/001-beer-1.svg" alt="Brew Icon">
+        <mat-card-title>{{ favorite.name }}</mat-card-title>
+        <mat-card-subtitle>Type: {{ favorite.brewery_type }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div class="flex row align-center">
+            <div class="flex-space-even text-center padding20">
+                <a [href]='"https://maps.google.com/?ll="+favorite.latitude+","+favorite.longitude' target="_blank">
+                    <p>{{ favorite.street }}</p>
+                    <p>{{ favorite.city }} {{ favorite.state }}, {{ favorite.postal_code }}</p>
+                </a>
+            </div>
+            <div class="flex-space-even text-center padding20"><a [href]='"tel:"+"phone"'>{{ favorite.phone | phoneNumber }} </a>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-icon-button aria-label="Brew website icon">
+            <a [href]="website_url" target="_blank">
+                <mat-icon>open_in_new</mat-icon>
+            </a>
+        </button>
+        <button mat-icon-button style="float: right;" title="Remove From Favorites" aria-label="Heart Icon">
+            <mat-icon>favorite</mat-icon>
+        </button>
+    </mat-card-actions>
+</mat-card>
