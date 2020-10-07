@@ -1,3 +1,22 @@
-
-
-<router-outlet></router-outlet>
+<mat-toolbar color="primary">
+    <span>Brewery Finder</span>
+    <span class="spacer"></span>
+    <button *ngIf="username !== null" routerLinkActive="active" routerLink="/search" mat-icon-button
+        aria-label="All Todos">
+        <mat-icon>home</mat-icon>
+    </button>
+    <button *ngIf="username !== null" routerLinkActive="active" [routerLink]="'/user/'+ username" mat-icon-button
+        aria-label="User List">
+        <mat-icon>account_circle</mat-icon>
+    </button>
+    <button *ngIf="username === null" routerLinkActive="active" routerLink="/login" mat-icon-button
+        aria-label="Login">
+        <mat-icon>login</mat-icon>
+    </button>
+    <button *ngIf="username !== null" (click)="logout()" mat-icon-button aria-label="Logout">
+        <mat-icon>logout</mat-icon>
+    </button>
+</mat-toolbar>
+<div class="page-container">
+    <router-outlet></router-outlet>
+</div>
