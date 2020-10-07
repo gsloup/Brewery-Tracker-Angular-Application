@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,19 @@ export class UserService {
 
   constructor(private router: Router) { }
 
+  // STATE MANAGEMENT
+  private readonly _user = new BehaviorSubject<string>(null); // creates behavior subject
+  readonly users$ = this._user.asObservable(); // creates subsequent observable
+
+  private get user() {             // getter
+    return this._user.getValue();
+  }
+  private set user(user: string) { // setter
+    this._user.next(user);
+  }
+
+
+  // METHODS
   login(username: string, password: string): void {
     let users = JSON.parse(localStorage.getItem('users')); // gets users array from local storage
     if (users === null) {  // If no lists of users exists, create an empty one
@@ -45,7 +59,7 @@ export class UserService {
 
   logout(): void {
     // clear username from state management
-    
+
     this.router.navigate(['/login']); // reroutes to login page
   }
 
