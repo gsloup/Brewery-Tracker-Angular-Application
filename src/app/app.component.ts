@@ -13,7 +13,7 @@ export class AppComponent {
   
   constructor(private userService: UserService) {
     this.userService.checkStorage(); // set user stored in local storage
-    this.userService.users$.subscribe((name: string) => this.username = name); // subscribes to behavior subject to get current username
+    this.userService.user$.subscribe((name: string) => this.username = name); // subscribes to behavior subject to get current username
   }
 
   logout() {

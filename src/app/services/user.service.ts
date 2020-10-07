@@ -11,7 +11,7 @@ export class UserService {
 
   // STATE MANAGEMENT
   private readonly _user = new BehaviorSubject<string>(null); // creates behavior subject
-  readonly users$ = this._user.asObservable(); // creates subsequent observable
+  readonly user$ = this._user.asObservable(); // creates subsequent observable
 
   private get user() {             // getter
     return this._user.getValue();
