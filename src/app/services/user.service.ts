@@ -58,7 +58,8 @@ export class UserService {
   }
 
   logout(): void {
-    // clear username from state management
+    this.user = null; 
+    localStorage.clear(); // wouldn't normally clear all storage, but erasing for this app's purposes
 
     this.router.navigate(['/login']); // reroutes to login page
   }
