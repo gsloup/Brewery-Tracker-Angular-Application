@@ -2,9 +2,9 @@
 <h2 class="text-center">Favorite Breweries</h2>
 
 <!-- Iterates through list of favorites and displays a card for each -->
-<mat-card *ngFor="let favorite of favoritesList" class="card">
+<mat-card *ngFor="let favorite of favoritesList; let i = index" class="card">
     <mat-card-header>
-        <img mat-card-avatar src="../../assets/brewIcons/001-beer-1.svg" alt="Brew Icon">
+        <img mat-card-avatar [src]="getIconFilename(i)" alt="Brew Icon">
         <mat-card-title>{{ favorite.name }}</mat-card-title>
         <mat-card-subtitle>Type: {{ favorite.brewery_type }}</mat-card-subtitle>
     </mat-card-header>
