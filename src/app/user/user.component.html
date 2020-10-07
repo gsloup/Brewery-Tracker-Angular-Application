@@ -29,7 +29,7 @@
                     <mat-icon>open_in_new</mat-icon>
                 </a>
             </button>
-            <button mat-icon-button style="float: right;" title="Remove From Favorites" aria-label="Heart Icon">
+            <button (click)="removeFavorite(favorite.id)" mat-icon-button style="float: right;" title="Remove From Favorites" aria-label="Heart Icon">
                 <mat-icon>favorite</mat-icon>
             </button>
         </mat-card-actions>

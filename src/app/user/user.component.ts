@@ -40,6 +40,10 @@ export class UserComponent implements OnInit {
     return (`../../assets/brewIcons/${this.iconFilenames[iconIndex]}.svg`);
   }
 
+  removeFavorite(id){
+    this.favoritesList = this.favoritesList.filter(b=> b.id !== id);
+  }
+
   
 
 }
