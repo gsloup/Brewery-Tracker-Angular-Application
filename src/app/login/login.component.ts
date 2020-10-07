@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators, FormBuilder, FormGroup} from '@angular/forms';
+import {Validators, FormBuilder, FormGroup} from '@angular/forms';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -10,11 +11,12 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private fb:FormBuilder) { }
+  constructor(private fb:FormBuilder, private userService: UserService) { }
 
   login() {
     if (this.loginForm.valid) {
-      // run the code to actually log the person in through the userService
+      // run the code to actually log the person in through the userService from info passed in the template
+      this.userService.login(this.loginForm.get("username").value, this.loginForm.get("password").value);
     }
   }
 
