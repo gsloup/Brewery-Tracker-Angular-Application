@@ -16,7 +16,7 @@ export class UserService {
     // Grab the username by the specific username & password arguments passed to the function
     let userByName = users.filter(u => u.username === username && u.password === password)[0];
     if (userByName) { // If that login info exists for an existing user...
-      // set the username to state management or local storage
+      // set the username to state management
 
       this.router.navigate(['/search']); // reroutes from login screen to '/search'
     }
@@ -41,7 +41,12 @@ export class UserService {
     else {
       // give the user a "name already exists" message
     }
+  }
 
+  logout(): void {
+    // clear username from state management
+    
+    this.router.navigate(['/login']); // reroutes to login page
   }
 
   
