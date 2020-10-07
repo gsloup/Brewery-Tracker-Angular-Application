@@ -30,7 +30,7 @@ export class UserService {
     // Grab the username by the specific username & password arguments passed to the function
     let userByName = users.filter(u => u.username === username && u.password === password)[0];
     if (userByName) { // If that login info exists for an existing user...
-      // set the username to state management
+      localStorage.setItem('user', username); // set username with key "user" to local storage
 
       this.router.navigate(['/search']); // reroutes from login screen to '/search'
     }
@@ -61,6 +61,11 @@ export class UserService {
     // clear username from state management
 
     this.router.navigate(['/login']); // reroutes to login page
+  }
+
+  checkStorage(){
+    // Grab the user stored in local storage and emit through behavior subject
+    this.user = localStorage.getItem('user');
   }
 
   
