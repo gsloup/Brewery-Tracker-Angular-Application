@@ -36,3 +36,8 @@
 <!-- Credit given for brew icons -->
 <div *ngIf="favoritesList.length !== 0" class="credit">**Icons made by <a href="https://www.flaticon.local/authors/freepik" title="Freepik">Freepik</a>
     from <a href="https://www.flaticon.local/" title="Flaticon">www.flaticon.local</a></div>
+
+<!-- Information message teaching user about adding favorites -->
+<div class="text-center" *ngIf="favoritesList.length === 0">Go to 
+    <a routerLink='/search'>search page</a> page to find breweries, then add them to your favorites!</div>
+
