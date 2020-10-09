@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
@@ -7,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class UserService {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private _snackBar: MatSnackBar) { }
 
   // STATE MANAGEMENT
   private readonly _user = new BehaviorSubject<string>(null); // creates behavior subject
@@ -38,6 +39,9 @@ export class UserService {
     }
     else {
       // give the user an "incorrect" message
+      this._snackBar.open("Invalid username or password provided", null, {
+        duration: 2500,
+      });
     }
   }
 
@@ -56,6 +60,9 @@ export class UserService {
     }
     else {
       // give the user a "name already exists" message
+      this._snackBar.open("Username already exists", null, {
+        duration: 2500,
+      });
     }
   }
 
