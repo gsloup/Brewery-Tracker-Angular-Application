@@ -14,7 +14,10 @@ export class UserGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
       const username = this.userService.user$; // grabs the current 'user' that is logged in
-
+      console.log("this is the username in the userGuard");
+      console.log(username);
+      
+      
       // If no one is logged in, route them to the 'login' page
       if (username === null) {  
         this.router.navigate(['/login']);
