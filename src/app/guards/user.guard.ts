@@ -16,7 +16,10 @@ export class UserGuard implements CanActivate {
       const username = this.userService.user$; // grabs the current 'user' that is logged in
       console.log("this is the username in the userGuard");
       console.log(username);
+<<<<<<< HEAD
       // console.log(username._value);
+=======
+>>>>>>> adding-auth-guards
       
       
       // If no one is logged in, route them to the 'login' page
