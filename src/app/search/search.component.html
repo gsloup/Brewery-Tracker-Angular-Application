@@ -14,7 +14,7 @@
 
 <!-- Brewery display table -->
 <div class="margin-top15" [ngClass]="{'hide-class' : breweries.length === 0}">
-  <h4 class="text-center margin-top15">Click on specific breweries to see more information</h4>
+  <h4 class="text-center margin-top15">** Click on specific breweries to see more information **</h4>
   <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
     <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
       <th mat-header-cell *matHeaderCellDef> {{ column | titlecase }} </th>
