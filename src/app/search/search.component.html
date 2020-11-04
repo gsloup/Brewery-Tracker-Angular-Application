@@ -41,19 +41,25 @@
           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
 
           <!-- Website -->
-          <div class="flex-space-even text-center"><a [href]="element.website_url"
-              target="_blank">{{ element.website_url }}</a></div>
+          <div class="flex-space-even text-center">
+            <a *ngIf='element.website_url' [href]="element.website_url" target="_blank">{{ element.website_url }}</a>
+            <span *ngIf='!element.website_url'>**No Website Available**</span>
+          </div>
 
           <!-- Street Address -->
           <div class="flex-space-even text-center">
-            <a [href]='"https://maps.google.com/?ll="+element.latitude+","+element.longitude' target="_blank">
+            <a *ngIf="element.street" [href]='"https://maps.google.com/?ll="+element.latitude+","+element.longitude' target="_blank">
               <p>{{ element.street }}</p>
               <p>{{ element.city }} {{element.state}}, {{ element.postal_code }}</p>
             </a>
+            <span *ngIf="!element.street">**No Address Available**</span>
           </div>
 
           <!-- Phone Number -->
-          <div class="flex-space-even text-center"><a [href]='"tel:"+"element.phone"'>{{ element.phone | phoneNumber }}</a></div>
+          <div class="flex-space-even text-center">
+            <a *ngIf="element.phone" [href]='"tel:"+"element.phone"'>{{ element.phone | phoneNumber }}</a>
+            <span *ngIf="!element.phone">**No Phone Number Available**</span>
+          </div>
         </div>
       </td>
     </ng-container>
