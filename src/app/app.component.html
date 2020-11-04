@@ -18,5 +18,12 @@
     </button>
 </mat-toolbar>
 <div class="page-container">
+    <div *ngIf="username === null" class="text-box white-container">
+        <h2> Welcome to the Brewery Finder! </h2>
+        <h3>
+            Once signed in, you may search for breweries by name or location. Easily add new 
+            breweries to your collection of favorites as well as get access to their website, address, or phone number.
+        </h3>
+    </div>
     <router-outlet></router-outlet>
 </div>
