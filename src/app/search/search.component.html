@@ -48,7 +48,7 @@
 
           <!-- Street Address -->
           <div class="flex-space-even text-center">
-            <a *ngIf="element.street" [href]='"https://maps.google.com/?ll="+element.latitude+","+element.longitude' target="_blank">
+            <a *ngIf="element.street" [href]='"https://maps.google.com/?q="+element.street+","+element.city+","+element.state' target="_blank">
               <p>{{ element.street }}</p>
               <p>{{ element.city }} {{element.state}}, {{ element.postal_code }}</p>
             </a>
