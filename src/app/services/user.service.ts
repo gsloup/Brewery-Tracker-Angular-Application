@@ -1,14 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { FavoritesService } from './favorites.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private router: Router, private _snackBar: MatSnackBar) { }
+  constructor(private router: Router, private _snackBar: MatSnackBar, private http: HttpClient, 
+    private favoritesService: FavoritesService) { }
 
   // STATE MANAGEMENT
   private readonly _user = new BehaviorSubject<string>(null); // creates behavior subject
@@ -23,60 +26,39 @@ export class UserService {
 
 
   // METHODS
-  login(username: string, password: string): void {
-    let users = JSON.parse(localStorage.getItem('users')); // gets users array from local storage
-    if (users === null) {  // If no lists of users exists, create an empty one
-      users = [];
-    }
-    // Grab the username by the specific username & password arguments passed to the function
-    let userByName = users.filter(u => u.username === username && u.password === password)[0];
-    if (userByName) { // If that login info exists for an existing user...
-      this.user = userByName.username // sets it into local storage via the setter function
-      localStorage.setItem('user', username); // set username with key "user" to local storage
-
-
-      this.router.navigate(['/search']); // reroutes from login screen to '/search'
-    }
-    else {
-      // give the user an "incorrect" message
-      this._snackBar.open("Invalid username or password provided", null, {
+  login(username: string, password: string){
+    this.http.post('/api/users/login', {username: username, password: password}).subscribe(res => {
+      if (res['success']) {
+        this.user = res['user'];
+        
+        localStorage.setItem('token', res["jwt"]); // Will be cleared when user logs out
+        //this.favoritesService.favoritesByUser();           // Initial retrieval of user's items from DB LOOKE HERE!!!!!
+        this.router.navigate(['/search']);
+      }
+      // Give user appropriate message using a snack bar
+      this._snackBar.open(res['msg'], null, {
         duration: 2500,
       });
-    }
+    })  
   }
 
-  signup(username: string, password: string): void {
-    let users = JSON.parse(localStorage.getItem('users')); // gets users array from local storage
-    if (users === null) { // if no users exist, create an empty array called 'users'
-      users = [];
-    }
-    let usersByName = users.filter(u => u.username === username); // filters out any matching usernames to the one in the argument
-    if (usersByName.length === 0) { // if there are no users that go by the name passed in the method argument...
-      users.push({username: username, password: password}) // add it to the users array
-      
-      localStorage.setItem('users', JSON.stringify(users)); // Sets new 'users' array to local storage
-
-      this.login(username, password); // logs user in and will do the rerouting to '/search'
-    }
-    else {
-      // give the user a "name already exists" message
-      this._snackBar.open("Username already exists", null, {
-        duration: 2500,
+  signup(username: string, password: string){ 
+    this.http.post('/api/users/signup', {username: username, password: password}).subscribe(res => {
+      if (res['success']) {
+        this.login(username, password); // automatically logs in new user if successfully signs up
+      }
+      // Give user appropriate message using a snack bar
+      this._snackBar.open(res['msg'], null, { 
+        duration: 3500,
       });
-    }
+    })  
   }
 
-  logout(): void {
-    this.user = null; 
-    localStorage.clear(); // wouldn't normally clear all storage, but erasing for this app's purposes
-
-    this.router.navigate(['/login']); // reroutes to login page
+  logout(){
+    this.user = null;                 // clears user state management
+    // this.favoritesService.clearFavorites();   // clears items state management  LOOK AT THIS
+    localStorage.removeItem('token'); // removes JWT from local storage
+    this.router.navigate(['/login']);
   }
-
-  checkStorage(){
-    // Grab the user stored in local storage and emit through behavior subject
-    this.user = localStorage.getItem('user');
-  }
-
   
 }

@@ -28,7 +28,7 @@ export class UserComponent implements OnInit {
     // User Info Subscription
     this.userService.user$.subscribe(res =>{ 
 
-      this.user = res;
+      this.user = res ? res['username'] : null;
     })
   }
 
@@ -41,7 +41,8 @@ export class UserComponent implements OnInit {
   }
 
   removeFavorite(id){
-    this.favoritesList = this.favoritesList.filter(b=> b.id !== id);
+    // Trigger the function in the service to delete
+    this.favoritesService.removeFavorite(id);
   }
 
   

@@ -37,7 +37,7 @@ export class SearchComponent implements OnInit {
       console.log("This is the list of breweries returned by API:");
       console.log(res);
       
-      this.breweries = res;
+      this.breweries = res //.map(v=> v.favorite = this.favoritesList.contains(v.id)); // CHANGE
       this.dataSource = new MatTableDataSource(this.breweries);
       this.dataSource.paginator = this.paginator;
       })
@@ -46,6 +46,8 @@ export class SearchComponent implements OnInit {
     this.favoritesService.favoritesList$.subscribe((res)=> {
       console.log(`this is the favoritesService ${res}`);
       
+      // Remove out the brewery IDs and have this.favoriteList be an array of those ids
+      // In the template for the favorite checkbox IF the id is included in the favoritesList, have it checked, otherwise, don't
       this.favoritesList = res;
     })
   }

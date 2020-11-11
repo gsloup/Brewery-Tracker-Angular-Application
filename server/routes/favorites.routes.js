@@ -5,24 +5,27 @@ const favoritesModels = require('../models/favorites.models');
 
 // Add Item
 router.post("/add", passport.authenticate('jwt', {session: false}), (req, res) => {
+    const userId = req.user.id;
+    const brewery = req.body.brewery;
     // check for valid info
-    if(!req.body.name || !req.body.qty || !req.body.price){ // CHANGE THIS TO MATCH THE FAVORITES
+    console.log(brewery)
+    if(!userId || !brewery.id || !brewery.name ){ 
         return res.send({success: false, msg: "Invalid values provided"})
     }
 
     // pass it to the model
-    favoritesModels.addItem(res, req.user.id, req.body.name, req.body.qty, req.body.price); // CHANGE TO MATCH FAVORITES
+    favoritesModels.addFavorite(res, userId, brewery); 
 
 })
 
 // Delete Item
 router.delete("/delete/:id", passport.authenticate('jwt', {session: false}), (req, res) => {
-    favoritesModels.removeItem(res, req.user.id, req.params.id); // MAKE SURE IT MATCHES THE MODEL
+    favoritesModels.removeFavorite(res, req.user.id, req.params.id);
 })
 
 // Get Favorites by User
 router.get("/user", passport.authenticate('jwt', {session: false}), (req, res) => {
-    favoritesModels.favoritesByUser(res, req.user.id); // MAKE SURE IT MATCHES THE MODEL
+    favoritesModels.favoritesByUser(res, req.user.id); 
 })
 
 module.exports = router;
