@@ -3,7 +3,7 @@ import { Brewery } from '../interfaces/brewery.interface';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,10 @@ export class FavoritesService {
   // State Management for List of Favorites
   private readonly _favoritesList = new BehaviorSubject<Brewery[]>([]); // behavior subject
   readonly favoritesList$ = this._favoritesList.asObservable(); // Observable
-  
+  favoritesIds$ = this.favoritesList$.pipe(map((v: any[])=>
+    v.map(f=> f.breweryId)
+  ))
+
   // Getter and Setter
   private get favoritesList(): Brewery[] { 
     return this._favoritesList.getValue();
@@ -22,6 +25,7 @@ export class FavoritesService {
     this._favoritesList.next(val);
   }
 
+  
   constructor(private http: HttpClient, private _snackBar: MatSnackBar) {
   }
 

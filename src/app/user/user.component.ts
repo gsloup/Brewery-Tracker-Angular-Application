@@ -20,16 +20,19 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     // Favorites List Subscription
-    this.favoritesService.favoritesList$.subscribe((res)=> {
-      
-      this.favoritesList = res;
-    })
-
-    // User Info Subscription
     this.userService.user$.subscribe(res =>{ 
 
       this.user = res ? res['username'] : null;
     })
+    this.favoritesService.favoritesByUser();
+    this.favoritesService.favoritesList$.subscribe((res)=> {
+      
+      this.favoritesList = res;
+    })
+    
+
+    // User Info Subscription
+
   }
 
   getIconFilename(idx: number): string { // Used to add brew icons from assets folder

@@ -27,22 +27,11 @@ export class SearchComponent implements OnInit {
   dataSource: MatTableDataSource<Brewery>;
   columnsToDisplay = ['name', 'city', 'state', 'favorite']; 
   expandedElement: Brewery | null;
-
+  faveIds: Array<number> =[]
 
   constructor(private breweryService: BreweryService, private favoritesService: FavoritesService) { }
 
   ngOnInit(): void { 
-    // Breweries List
-    this.breweryService.breweries$.subscribe((res)=> { 
-      console.log("This is the list of breweries returned by API:");
-      console.log(res);
-      
-      this.breweries = res //.map(v=> v.favorite = this.favoritesList.contains(v.id)); // CHANGE
-      this.dataSource = new MatTableDataSource(this.breweries);
-      this.dataSource.paginator = this.paginator;
-      })
-    
-    // Favorites List 
     this.favoritesService.favoritesList$.subscribe((res)=> {
       console.log(`this is the favoritesService ${res}`);
       
@@ -50,6 +39,25 @@ export class SearchComponent implements OnInit {
       // In the template for the favorite checkbox IF the id is included in the favoritesList, have it checked, otherwise, don't
       this.favoritesList = res;
     })
+    // Breweries List
+    this.favoritesService.favoritesIds$.subscribe(v=> this.faveIds = v);
+    this.breweryService.breweries$.subscribe((res)=> { 
+      console.log("This is the list of breweries returned by API:");
+      console.log(res);
+      
+      //this.breweries = res //.map(v=> v.favorite = this.favoritesList.contains(v.id)); // CHANGE
+      this.breweries = res.map(v =>{
+        v.favorite  =  this.faveIds.includes(v.id) ? true : false // if favorite is true
+        return v;
+      })
+      this.dataSource = new MatTableDataSource(this.breweries);
+      this.dataSource.paginator = this.paginator;
+      })
+    
+    // Favorites List 
+
+    
+    this.favoritesService.favoritesByUser();
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -63,21 +71,17 @@ export class SearchComponent implements OnInit {
     const searchBox = document.getElementById("search");
     
     this.breweryService.getBreweries(searchBox['value'])
-    
   }
 
   updateFavoritesList(element) {
+    console.log(element)
     if (element.favorite) {
       // add to list of favorites
       this.favoritesService.addFavorite(element);
-
     }
     else {
       // remove from list of favorites
       this.favoritesService.removeFavorite(element.id);
-
- 
-
     }
   }
 }

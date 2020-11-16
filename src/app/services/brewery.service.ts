@@ -32,6 +32,7 @@ export class BreweryService {
       console.log("This is the list of favorites:");
       this.favoritesIds = v.map(b => b.id)
     })
+    this.favoriteService.favoritesIds$.subscribe(v=> this.favoritesIds = v.map(v=> v.breweryId))
   }
 
 
@@ -52,7 +53,7 @@ export class BreweryService {
         phone: brewery.phone,
         website_url: brewery.website_url,
         updated_at: brewery.updated_at,
-        favorite: false // will map through favoriteIds and change any specific ones to true if they are favorited
+        favorite: this.favoritesIds.includes(brewery.id) ? true : false // will map through favoriteIds and change any specific ones to true if they are favorited
       }) 
       )),
       map(response => response.map(b => { // checks if user already had added a returned brewery to their favorites

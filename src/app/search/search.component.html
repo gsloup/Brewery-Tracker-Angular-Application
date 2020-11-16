@@ -22,7 +22,7 @@
       <ng-container *ngIf="column === 'favorite'">
         <td mat-cell *matCellDef="let element">
           <mat-checkbox [(ngModel)]="element.favorite" [checked]="element.favorite"
-            (change)="updateFavoritesList(element)"></mat-checkbox>
+            (click)="updateFavoritesList(element)"></mat-checkbox>
         </td>
       </ng-container>
       <ng-container *ngIf="column !== 'favorite'">
@@ -30,8 +30,6 @@
           {{ element[column] }}
         </td>
       </ng-container>
-
-
     </ng-container>
 
     <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->

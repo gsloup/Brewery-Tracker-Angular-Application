@@ -13,7 +13,7 @@ function addFavorite(res, userId, brewery){
 // Remove Favorite
 function removeFavorite(res, userId, favoritesId){
     // Try to remove favorite
-    pool.query("DELETE FROM favorites WHERE favorites.userId = ? AND favorites.id = ?", [userId, favoritesId], (err)=>{
+    pool.query("DELETE FROM favorites WHERE favorites.userId = ? AND favorites.breweryId = ?", [userId, favoritesId], (err)=>{
         // Send appropriate response
         if(err) return res.send({success: false, msg: 'Something went wrong, try again later'});
         return res.send({ success: true, msg: 'Favorite successfully deleted' });
