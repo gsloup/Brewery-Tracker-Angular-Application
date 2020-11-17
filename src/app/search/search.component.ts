@@ -51,9 +51,7 @@ export class SearchComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       })
     
-    // Favorites List 
-
-    
+    // Favorites List
     this.favoritesService.favoritesByUser();
   }
 
@@ -71,7 +69,7 @@ export class SearchComponent implements OnInit {
   }
 
   updateFavoritesList(element) {
-    if (element.favorite) {
+    if (!element.favorite) {
       // add to list of favorites
       this.favoritesService.addFavorite(element);
     }
