@@ -8,7 +8,6 @@ router.post("/add", passport.authenticate('jwt', {session: false}), (req, res) =
     const userId = req.user.id;
     const brewery = req.body.brewery;
     // check for valid info
-    console.log(brewery)
     if(!userId || !brewery.id || !brewery.name ){ 
         return res.send({success: false, msg: "Invalid values provided"})
     }

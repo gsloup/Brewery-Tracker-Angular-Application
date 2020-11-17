@@ -29,7 +29,6 @@ export class BreweryService {
 
   constructor(private http: HttpClient, private favoriteService: FavoritesService) { 
     this.favoriteService.favoritesList$.subscribe(v => {
-      console.log("This is the list of favorites:");
       this.favoritesIds = v.map(b => b.id)
     })
     this.favoriteService.favoritesIds$.subscribe(v=> this.favoritesIds = v.map(v=> v.breweryId))
@@ -64,10 +63,7 @@ export class BreweryService {
         return b;
       }))
       ).subscribe((res) => {
-        this.breweries = res;
-        console.log("subscribe function in breweryService is called");
-        
-        
+        this.breweries = res;    
       })
   }
   
