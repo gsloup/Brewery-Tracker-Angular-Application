@@ -7,12 +7,11 @@ const favoritesModels = require('../models/favorites.models');
 router.post("/add", passport.authenticate('jwt', {session: false}), (req, res) => {
     const userId = req.user.id;
     const brewery = req.body.brewery;
-    // check for valid info
+    // Check for valid info (not requiring ALL the brewery data since API has lots of 'null' data)
     if(!userId || !brewery.id || !brewery.name ){ 
         return res.send({success: false, msg: "Invalid values provided"})
     }
-
-    // pass it to the model
+    // Pass it to the model
     favoritesModels.addFavorite(res, userId, brewery); 
 
 })

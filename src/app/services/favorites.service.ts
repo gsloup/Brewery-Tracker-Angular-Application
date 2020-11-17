@@ -10,9 +10,9 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class FavoritesService {
 
-  // State Management for List of Favorites
-  private readonly _favoritesList = new BehaviorSubject<Brewery[]>([]); // behavior subject
-  readonly favoritesList$ = this._favoritesList.asObservable(); // Observable
+  // State Management for Favorites
+  private readonly _favoritesList = new BehaviorSubject<Brewery[]>([]); 
+  readonly favoritesList$ = this._favoritesList.asObservable(); 
   favoritesIds$ = this.favoritesList$.pipe(map((v: any[])=>
     v.map(f=> f.breweryId)
   ))
@@ -25,9 +25,7 @@ export class FavoritesService {
     this._favoritesList.next(val);
   }
 
-  
-  constructor(private http: HttpClient, private _snackBar: MatSnackBar) {
-  }
+  constructor(private http: HttpClient, private _snackBar: MatSnackBar) { }
 
   // ADD FAVORITE
   addFavorite(brewery: Brewery) { 
@@ -88,6 +86,4 @@ export class FavoritesService {
   clearFavorites(){ // Runs when logout() is called to reset state management
     this.favoritesList = [];
   }
-
-
 }

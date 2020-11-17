@@ -13,26 +13,26 @@ export class UserService {
   constructor(private router: Router, private _snackBar: MatSnackBar, private http: HttpClient, 
     private favoritesService: FavoritesService) { }
 
-  // STATE MANAGEMENT
-  private readonly _user = new BehaviorSubject<string>(null); // creates behavior subject
-  readonly user$ = this._user.asObservable(); // creates subsequent observable
+  // State Management
+  private readonly _user = new BehaviorSubject<string>(null); 
+  readonly user$ = this._user.asObservable(); 
 
-  private get user() {             // getter
+  // Getter and Setter
+  private get user() {             
     return this._user.getValue();
   }
-  private set user(user: string) { // setter
+  private set user(user: string) { 
     this._user.next(user);
   }
 
 
-  // METHODS
   login(username: string, password: string){
     this.http.post('/api/users/login', {username: username, password: password}).subscribe(res => {
       if (res['success']) {
         this.user = res['user'];
         
         localStorage.setItem('token', res["jwt"]); // Will be cleared when user logs out
-        //this.favoritesService.favoritesByUser();           // Initial retrieval of user's items from DB LOOKE HERE!!!!!
+        // Route user to search page
         this.router.navigate(['/search']);
       }
       // Give user appropriate message using a snack bar
@@ -55,9 +55,11 @@ export class UserService {
   }
 
   logout(){
-    this.user = null;                 // clears user state management
-    // this.favoritesService.clearFavorites();   // clears items state management  LOOK AT THIS
-    localStorage.removeItem('token'); // removes JWT from local storage
+    // Clears 'user' state management
+    this.user = null;     
+    // Remove JWT from local storage
+    localStorage.removeItem('token'); 
+    // Route user to login page
     this.router.navigate(['/login']);
   }
   

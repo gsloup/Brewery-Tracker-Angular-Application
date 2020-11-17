@@ -12,7 +12,8 @@ export class AppComponent {
   username: string;
   
   constructor(private userService: UserService) {
-    this.userService.user$.subscribe((user: Object) => this.username = user ? user['username'] : null); // subscribes to behavior subject to get current username
+    // Subscribe to User
+    this.userService.user$.subscribe((user: Object) => this.username = user ? user['username'] : null); 
   }
 
   logout() {

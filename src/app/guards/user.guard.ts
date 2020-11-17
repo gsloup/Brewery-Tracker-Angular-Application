@@ -10,14 +10,12 @@ import { UserService } from '../services/user.service';
 })
 export class UserGuard implements CanActivate {
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router) { }
 
-  }
-
+  // Will prevent non-signed in users from accessing the search or favorites pages
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> {
-
       return this.userService.user$.pipe(
         map((username: string) => {
           // If no one is logged in, route them to the 'login' page

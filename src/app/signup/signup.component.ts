@@ -15,19 +15,17 @@ export class SignupComponent implements OnInit {
 
   signup() {
     if (this.signupForm.valid) {
-      // Run "signup()" in userService based on info entered on the template
+      // Pass username and password to userService
       this.userService.signup(this.signupForm.get("username").value, this.signupForm.get("password").value);
-
     }
   }
 
   ngOnInit(): void {
-    // Builds the form here
+    // Build the form
     this.signupForm = this.fb.group({
+      // Form validation
       username: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(20)])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(16)])]
-
     })
   }
-
 }

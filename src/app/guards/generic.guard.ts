@@ -9,24 +9,22 @@ import { UserService } from '../services/user.service';
 })
 export class GenericGuard implements CanActivate {
 
-  constructor(private userService: UserService, private router: Router) {
-
-  }
-
+  constructor(private userService: UserService, private router: Router) { }
+  
+  // Will be used prevent logged in users from accessing the login or signup pages
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> {
       return this.userService.user$.pipe(
         map((username: string) => {
-          // route logged in users back to search page
+          // Route logged in users back to search page
           if (username !== null) {
             this.router.navigate(['/search']);
             return false;
           }
-          // otherwise allow non-logged in users to access the page
+          // Otherwise allow non-logged in users to access the page
           return true;
         })
       )
-  }
-  
+  } 
 }

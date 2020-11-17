@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 
-// Signup
+// SIGNUP
 router.post('/signup', (req, res)=> {
     // Check to make sure username and password exist on the request and match criteria
     const username = req.body.username;
@@ -21,9 +21,9 @@ router.post('/signup', (req, res)=> {
         // Else send back failed message w/appropriate info
         return res.send({success: false, msg: info});
     })(req, res);
-
 })
-// Login
+
+// LOGIN
 router.post('/login', (req, res)=> {
     const username = req.body.username;
     const password = req.body.password;

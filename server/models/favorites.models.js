@@ -18,8 +18,6 @@ function removeFavorite(res, userId, favoritesId){
         if(err) return res.send({success: false, msg: 'Something went wrong, try again later'});
         return res.send({ success: true, msg: 'Favorite successfully deleted' });
     })
-
-
 }
 
 // Favorites By User

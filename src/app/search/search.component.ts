@@ -11,7 +11,7 @@ import {MatPaginator} from '@angular/material/paginator';
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
-  animations: [
+  animations: [ // Table expand animations in template
     trigger('detailExpand', [
       state('collapsed', style({height: '0px', minHeight: '0'})),
       state('expanded', style({height: '*'})),
@@ -23,30 +23,27 @@ export class SearchComponent implements OnInit {
   breweries: Array<Brewery> = []; 
   favoritesList: Array<Brewery> = [];
 
-
   dataSource: MatTableDataSource<Brewery>;
-  columnsToDisplay = ['name', 'city', 'state', 'favorite']; 
-  expandedElement: Brewery | null;
+  columnsToDisplay = ['name', 'city', 'state', 'favorite']; // Used in template table
+  expandedElement: Brewery | null;  // Used in template table 
   faveIds: Array<number> =[]
 
   constructor(private breweryService: BreweryService, private favoritesService: FavoritesService) { }
 
   ngOnInit(): void { 
     this.favoritesService.favoritesList$.subscribe((res)=> {
-      
-      // Remove out the brewery IDs and have this.favoriteList be an array of those ids
-      // In the template for the favorite checkbox IF the id is included in the favoritesList, have it checked, otherwise, don't
+      // Get user's favorites from state management
       this.favoritesList = res;
     })
-    // Breweries List
+    // Subscribe to data in state management
     this.favoritesService.favoritesIds$.subscribe(v=> this.faveIds = v);
     this.breweryService.breweries$.subscribe((res)=> { 
-      
-      //this.breweries = res //.map(v=> v.favorite = this.favoritesList.contains(v.id)); // CHANGE
+      // Map through the searched breweries and update the "favorite" checkbox with the user's favorites
       this.breweries = res.map(v =>{
         v.favorite  =  this.faveIds.includes(v.id) ? true : false // if favorite is true
         return v;
       })
+      // Template table info for material design
       this.dataSource = new MatTableDataSource(this.breweries);
       this.dataSource.paginator = this.paginator;
       })
@@ -55,16 +52,14 @@ export class SearchComponent implements OnInit {
     this.favoritesService.favoritesByUser();
   }
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator; // Used in template table
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.paginator; // Used in template table
   }
   
-
-  getBreweries () { // temp placeholder omaha for testing
+  getBreweries() { 
     const searchBox = document.getElementById("search");
-    
     this.breweryService.getBreweries(searchBox['value'])
   }
 

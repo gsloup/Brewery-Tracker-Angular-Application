@@ -12,27 +12,24 @@ export class UserComponent implements OnInit {
 
   favoritesList: Array<Brewery> = [];
   user: string;
+
+  // Image asset names that will show random pic in user's favorites cards
   iconFilenames = ['001-beer-1', '002-beer-bottle', '003-beer-box', '004-wheat', '005-beer-can', 
       '006-bottle-cap', '007-beer', '008-barrel', '009-bar', '010-corkscrew'];
   
-
   constructor(private favoritesService: FavoritesService, private userService: UserService) { }
 
   ngOnInit(): void {
-    // Favorites List Subscription
+    // Subscribe to user
     this.userService.user$.subscribe(res =>{ 
 
       this.user = res ? res['username'] : null;
-    })
+    });
+    // Subscribe to favorites
     this.favoritesService.favoritesByUser();
     this.favoritesService.favoritesList$.subscribe((res)=> {
-      
       this.favoritesList = res;
-    })
-    
-
-    // User Info Subscription
-
+    });
   }
 
   getIconFilename(idx: number): string { // Used to add brew icons from assets folder
@@ -44,10 +41,6 @@ export class UserComponent implements OnInit {
   }
 
   removeFavorite(id){
-    // Trigger the function in the service to delete
     this.favoritesService.removeFavorite(id);
   }
-
-  
-
 }
