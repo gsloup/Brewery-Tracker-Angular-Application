@@ -12,19 +12,24 @@
 
         <mat-card-content>
             <div class="flex row align-center">
-                <div class="flex-space-even text-center padding20">
+                <!-- Address -->
+                <div *ngIf="favorite.street" class="flex-space-even text-center padding20">
                     <a [href]='"https://maps.google.com/?ll="+favorite.latitude+","+favorite.longitude' target="_blank">
                         <p>{{ favorite.street }}</p>
                         <p>{{ favorite.city }} {{ favorite.state }}, {{ favorite.postal_code }}</p>
                     </a>
                 </div>
-                <div class="flex-space-even text-center padding20"><a
+                <div *ngIf="!favorite.street" class="flex-space-even text-center padding20">**No Address Available**</div>
+                <!-- Phone Number -->
+                <div *ngIf="favorite.phone" class="flex-space-even text-center padding20"><a
                         [href]='"tel:"+"phone"'>{{ favorite.phone | phoneNumber }} </a>
                 </div>
+                <div *ngIf="!favorite.phone" class="flex-space-even text-center padding20">**No Phone Number Available**</div>
             </div>
         </mat-card-content>
+        <!-- Website button -->
         <mat-card-actions>
-            <button mat-icon-button aria-label="Brew website icon" [title]='"Visit the "+ favorite.name+" website"'>
+            <button *ngIf='favorite.website_url' mat-icon-button aria-label="Brew website icon" [title]='"Visit the "+ favorite.name+" website"'>
                 <a [href]="favorite.website_url" target="_blank">
                     <mat-icon>open_in_new</mat-icon>
                 </a>
