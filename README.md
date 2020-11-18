@@ -2,7 +2,7 @@
 
 Link to the hosted project: https://brewery-finder.herokuapp.com/signup
 
-This project made in Angular 10, using a MySQL database, and hosted through Heroku.
+This project made in Angular 10, using a MySQL database, and is hosted through Heroku.
 
 ## Features
 
