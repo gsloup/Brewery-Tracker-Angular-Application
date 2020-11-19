@@ -2,7 +2,7 @@
 
 Link to the hosted project: https://brewery-finder.herokuapp.com/signup
 
-This project made in Angular 10, using a MySQL database, and is hosted through Heroku.
+This full stack project was made in **Angular 10**, using a **MySQL database**, and is hosted through **Heroku**.
 
 ## Features
 
@@ -22,5 +22,6 @@ This project made in Angular 10, using a MySQL database, and is hosted through H
 - SQL queries have parameterized statements to help prevent SQL injections.
 - Database config variables are safely hidden to those searching the source code.
 - Angular Material Design used to make a clean UI/UX.
+- Back end created with Express.js.
 - Utilizes the Open Brewery DB API (https://www.openbrewerydb.org/).
 - Responsive design for different screen sizes (not currently fully optimized for mobile screens).
